@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <title>Финансы | Панель предпринимателя</title>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <link rel='stylesheet' type='text/css' media='screen' href='static/index.css'>
+    <link rel="shortcut icon" href="static/img/favicon.jpg" type="image/x-icon">
+</head>
+<div class="modal add_fin">
+    <div class="content">
+        <div class="flex">
+            <h2>Добавить финансовую операцию</h2>
+            <button onclick="close_modal()">Закрыть</button>
+        </div>
+        <form class="form_add" action="/save/finance" method="POST">
+            <p class="id">ID операции:</p>
+            <select name="type" id="">
+                <option selected disabled value="">Выберите тип</option>
+                <option value="Расход">Расход</option>
+                <option value="Доход">Доход</option>
+            </select>
+            <input type="number" name="price" class="name" placeholder="Сумма денег(₽)" required>
+            <input type="text" name="desc" class="name" placeholder="Описание" required>
+            <button type="submit">Создать</button>
+            <input type="text" name="id" class="id_inp" style="display: none;">
+        </form>
+    </div>
+</div>
+<div class="modal edit_fin">
+    <div class="content">
+        <div class="flex">
+            <h2>Редактирование</h2>
+            <button onclick="close_edit()">Закрыть</button>
+        </div>
+        <form class="form_add" action="/save/finance" method="POST">
+            <p class="id_edit">ID операции:</p>
+            <select name="type" id="">
+                <option disabled value="">Выберите тип</option>
+                <option selected value="m">Расход</option>
+                <option value="p">Доход</option>
+            </select>
+            <input type="number" name="price" class="name" placeholder="Сумма денег" required>
+            <input type="text" name="desc" class="name" placeholder="Описание" required>
+            <button type="submit">Создать</button>
+        </form>
+    </div>
+</div>
+<div class="loader_modal">
+    <div class="loader"></div>
+</div>
+
+<body>
+    <header></header>
+    <main>
+        <h2>Финансы</h2>
+        <p>Следите за своими финансами в реальном времени</p>
+        <div class="control">
+            <button class="add btn">Добавить финансовую операцию</button>
+        </div>
+        <div class="area">
+        </div>
+    </main>
+</body>
+<script src="static/js/paster.js"></script>
+<script src="static/js/finance.js"></script>
+</html>

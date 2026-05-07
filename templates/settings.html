@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <title>Настройки | Панель предпринимателя</title>
+    <link rel="shortcut icon" href="static/img/favicon.jpg" type="image/x-icon">
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <link rel='stylesheet' type='text/css' media='screen' href='static/index.css'>
+    <style>
+        .hide {
+            display: none;
+        }
+
+        .left_con {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 1px;
+            padding: 30px;
+            border: 4px solid #064f97;
+            height: 500px;
+        }
+
+        .right_con {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            border: 3px solid #064f97;
+            width: 100%;
+            height: 502px;
+            padding: 30px;
+        }
+
+        .flex_c {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: space-between;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="loader_modal">
+        <div class="loader"></div>
+    </div>
+    <header></header>
+    <main>
+        <h2>Настройки</h2>
+        <div class="flex_c">
+            <ul class="left_con">
+                <li><a class="btn" onclick="main()" href="#">Главная</a></li>
+                <li><a class="btn" onclick="theme()" href="#">Тема</a></li>
+                <li><a class="btn" onclick="account()" href="#">Аккаунт</a></li>
+                <li><a class="btn" onclick="info()" href="#">О сайте</a></li>
+            </ul>
+            <div class="right_con">
+                <div class="main_c">
+                    <h3>Главная</h3>
+                    <p>Выберите необходимый пункт меню</p>
+                </div>
+                <div class="hide theme_c">
+                    <h3>Тема</h3>
+                    <p>Попробуйте новую ТЕМНУЮ тему</p>
+                    <button class="theme btn">Темная тема</button>
+                </div>
+                <div class="hide account_c">
+                    <h3>Аккаунт</h3>
+                    <p class="org_n">Организация: </p>
+                    <p class="info">Автоматический выход через 15 мин</p>
+                    <div onclick="exit()" class="btn">Выйти из аккаунта</div>
+                </div>
+                <div class="hide info_c">
+                    <h3>Информация о программном обеспечении</h3>
+                    <p>Вы используете последнюю версию сайта</p>
+                    <p class="ver">Версия: </p>
+                    <p>Данный сайт был специально разработан для ADreams</p>
+                </div>
+            </div>
+        </div>
+    </main>
+</body>
+<script src="static/js/paster.js"></script>
+<script src="static/js/settings.js"></script>
+</html>

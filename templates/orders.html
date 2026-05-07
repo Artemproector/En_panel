@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <title>Продажи | Панель предпринимателя</title>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <link rel="shortcut icon" href="static/img/favicon.jpg" type="image/x-icon">
+    <link rel='stylesheet' type='text/css' media='screen' href='static/index.css'>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://unpkg.com/@popperjs/core@2/dist/umd/popper.min.js"></script>
+    <script src="https://unpkg.com/tippy.js@6/dist/tippy-bundle.umd.js"></script>
+    <script src="https://unpkg.com/@popperjs/core@2"></script>
+    <script src="https://unpkg.com/tippy.js@6"></script>
+    <style>
+        .name {
+            width: 84%;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="modal add_ord">
+        <div class="content">
+            <div class="cont">
+                <div class="flex">
+                    <h2>Создать заказ</h2>
+                    <div onclick="full_modal.classList.toggle('show_modal');" class="btn">Закрыть</div>
+                </div>
+                <form class="form_add" action="/save/order" method="POST">
+                    <div class="order_name">
+                        <input type="text" name="name_ord" class="name" placeholder="Название" required>
+                        <button class="auto" type="button"
+                            title="Эта кнопка автоматически создаст уникальное значение имени">АВТО</button>
+                    </div>
+                    <div class="input">
+                        <div class="products"></div>
+                    </div>
+                    <p class="price_o">Автоматической подсчет выручки</p>
+                    <input type="text" name="content" id="a" style="display: none;">
+                    <input type="text" name="price_o" id="b" style="display: none;">
+                    <input type="text" name="id" class="id" style="display: none;">
+                    <button type="submit">Создать</button>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="loader_modal">
+        <div class="loader"></div>
+    </div>
+    <header></header>
+    <main>
+        <h2>Продажи</h2>
+        <p>Отслеживайте состояние своих заказов в реальном времени!</p>
+        <button class="add btn">Создать заказ</button>
+        <h1>Сделать!!!</h1>
+        <div class="area">
+        </div>
+    </main>
+</body>
+<script src="./static/js/paster.js"></script>
+<script src="./static/js/orders.js"></script>
+
+</html>

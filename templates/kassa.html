@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Касса самообслуживания</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap');
+
+        body {
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+            margin: 20px;
+            background-color: #ececec;
+            display: flex;
+            align-items: baseline;
+            justify-content: space-between;
+            flex-direction: row;
+        }
+
+        h1 {
+            text-align: center;
+        }
+
+        .products {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: stretch;
+        }
+
+        .cart {
+            display: flex;
+            flex-wrap: wrap;
+            margin-bottom: 20px;
+            align-content: flex-start;
+            flex-direction: column;
+            align-items: flex-start;
+            height: 800px;
+        }
+
+        .product {
+            padding: 20px;
+            margin: 5px;
+            width: 30%;
+            box-sizing: border-box;
+            background-color: #ffffff;
+            text-align: center;
+            box-shadow: -1px 0px 20px 3px #c9c9c9;
+            border-radius: 10px;
+            transition: all 1s;
+        }
+
+        .product:hover {
+            background-color: rgb(108 175 255);
+            transition: all 1s;
+        }
+
+        .cart-item {
+            margin: 4px;
+            display: flex;
+            flex-direction: row;
+            background-color: white;
+            padding: 10px;
+            border-radius: 10px;
+            gap: 20px;
+            align-items: center;
+            width: 60%;
+            justify-content: space-between;
+        }
+
+        button {
+            margin-top: 10px;
+            padding: 10px;
+            background-color: rgb(108 175 255);
+            box-shadow: 0px 0px 5px #0079ff;
+            transition: 1s all;
+            border: none;
+        }
+
+        button:hover {
+            box-shadow: 1px 1px 10px 5px #0079ff;
+            ;
+            transition: all 0.5s;
+        }
+
+        #total {
+            font-weight: bold;
+            font-size: 52px;
+        }
+
+        strong {
+            width: 100px;
+        }
+
+        #complete-btn {
+            width: 100%;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 999;
+            left: 0;
+            top: 0;
+            width: 100%;
+            /* чтобы покрывать весь экран */
+            height: 100%;
+            /* чтобы покрывать весь экран */
+            background-color: #ffffff;
+            /* полупрозрачный фон */
+            justify-content: center;
+            align-items: center;
+        }
+
+        /* Контент модального окна */
+        .modal-content {
+            background-color: #fff;
+            animation: show 1s;
+            padding: 20px;
+            border-radius: 8px;
+            max-width: 400px;
+            width: 80%;
+            text-align: center;
+        }
+
+        @keyframes show {
+            0% {
+                opacity: 0;
+                transform: scale(0);
+            }
+
+            100% {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        @keyframes redBG {
+            0% {
+                background-color: red;
+                transition: 0.7s;
+            }
+
+            50% {
+                background-color: white;
+                transition: 0.5s;
+            }
+
+            100% {
+                background-color: rgb(255, 0, 0);
+                transition: 0.5s;
+            }
+        }
+
+        .left {
+            width: 50%;
+            display: flex;
+            flex-direction: column;
+            align-items: stretch;
+        }
+
+        .right {
+            width: 40%;
+        }
+
+        .btns {
+            display: flex;
+            flex-direction: column;
+            align-items: stretch;
+            margin: 5px;
+        }
+
+        #help-modal {
+            animation: redBG 4s;
+            animation-iteration-count: infinite;
+        }
+
+        #help2-modal {
+            animation: redBG 4s;
+            animation-iteration-count: infinite;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="left">
+        <h2>Корзина</h2>
+        <ol class="cart" id="cart-list"></ol>
+        <div id="total">0<span style="font-size:32px ;">,00</span></div>
+
+        <button id="complete-btn">Оплатить покупку</button>
+    </div>
+    <div class="right">
+        <div class="btns">
+            <button onclick="close_id()">Закрыть чек</button>
+            <button id="sale_btn">Скидочная карта</button> 
+            <button id="help_btn">Помощь сотрудника</button>
+        </div>
+        <div class="products" id="product-list"></div>
+    </div>
+    <!-- Модальное окно -->
+    <div class="modal" id="payment-modal">
+        <div class="modal-content">
+            <h2>Спасибо за покупку!</h2>
+            <p>Покупка успешно оплачена!</p>
+            <p>Чек сохранен в формате JSON</p>
+        </div>
+    </div>
+    <div class="modal" id="check-modal">
+        <div class="modal-content">
+            <h2>Введите номер телефона</h2>
+            <input id="inp" type="tel">
+            <button onclick="modal2.style.display = 'none';">OK</button>
+            <div class="num">
+                <button onclick="add(1)">1</button>
+                <button onclick="add(2)">2</button>
+                <button onclick="add(3)">3</button>
+                <button onclick="add(4)">4</button>
+                <button onclick="add(5)">5</button>
+                <button onclick="add(6)">6</button>
+                <button onclick="add(7)">7</button>
+                <button onclick="add(8)">8</button>
+                <button onclick="add(9)">9</button>
+                <button onclick="add(0)">0</button>
+            </div>
+        </div>
+    </div>
+    <div class="modal" id="help-modal">
+        <div style="background-color: #fff;" class="modal-content">
+            <h2>Сейчас сотрудник к вам подойдет</h2>
+            <button id="ok">Отмена</button>
+
+        </div>
+    </div>
+    <div onclick="modal5.style.display = 'none';" class="modal" id="start-modal">
+        <div class="modal-content">
+            <h2>Для начала нажмите в любом месте</h2>
+        </div>
+    </div>
+    <div class="modal" id="help2-modal">
+        <div style="background-color: #fff;" class="modal-content">
+            <h2 onclick="end()">Ожидайте подтверждения сотрудника</h2>
+        </div>
+    </div>
+</body>
+<script>
+    const products = [
+        { name: 'Капучино', price: 200 },
+        { name: 'Латте', price: 180 },
+        { name: 'Раф', price: 190 },
+        { name: 'Эспрессо', price: 100 },
+        { name: 'Американо', price: 110 },
+        { name: 'Молоко', price: 50 },
+        { name: 'Чай зеленый', price: 120 },
+        { name: 'Чай черный', price: 120 },
+        { name: 'Вода', price: 100 },
+        { name: 'Сироп', price: 30 },
+    ];
+    const cart = {};
+    const productListDiv = document.getElementById('product-list');
+    const cartListDiv = document.getElementById('cart-list');
+    const totalDiv = document.getElementById('total');
+    const completeBtn = document.getElementById('complete-btn');
+    const saleBtn = document.getElementById('sale_btn');
+    const helpBtn = document.getElementById('help_btn');
+    const okbtn = document.getElementById('ok').onclick = "modal2.style.display = 'none'"
+    const inp = document.getElementById('inp')
+
+    const modal = document.getElementById('payment-modal');
+    const modal2 = document.getElementById('check-modal');
+    const modal3 = document.getElementById('help-modal');
+    const modal4 = document.getElementById('help2-modal');
+    const modal5 = document.getElementById('start-modal');
+    modal5.style.display = 'flex'
+    
+    let totalSum = 0;
+    
+    function add(num) {
+        let count = inp.value
+        if (count.length != 11) {
+            inp.value += num
+        }
+    }
+    
+    function close_id() {
+        modal4.style.display = 'flex';
+        modal5.style.display = 'flex'
+        for (let key in cart) delete cart[key];
+        renderCart();
+    }
+    
+    function end() {
+        modal4.style.display = 'none';
+    }
+    
+    function renderProducts() {
+        products.forEach((product, index) => {
+            const productDiv = document.createElement('div');
+            productDiv.className = 'product';
+
+            productDiv.innerHTML = `
+                <strong>${product.name}</strong><br/>
+                Цена:${product.price}₽<br/>
+                <button onclick="addToCart(${index})">Добавить в корзину</button>`;
+            productListDiv.appendChild(productDiv);
+        });
+    }
+
+    // Добавление товара в корзину
+    function addToCart(index) {
+        const product = products[index];
+
+        if (cart[product.name]) {
+            cart[product.name].quantity += 1
+        } else {
+            cart[product.name] = { price: product.price, quantity: 1 }
+        }
+        renderCart();
+    }
+    
+    function renderCart() {
+        cartListDiv.innerHTML = '';
+        totalSum = 0;
+
+        for (const [name, item] of Object.entries(cart)) {
+            const itemLi = document.createElement('li');
+            itemLi.className = 'cart-item';
+
+            const sumPrice = item.price * item.quantity
+            totalSum += sumPrice;
+
+            itemLi.innerHTML = `<strong>${name}</strong><button onclick="removeFromCart('${name}')">-</button>${item.quantity}<strong>${sumPrice}₽</strong>`
+            cartListDiv.appendChild(itemLi);
+        }
+        totalDiv.innerHTML = totalSum + '<span style="font-size:25px ;">,00₽';
+    }
+
+    // Удаление товара из корзины
+    function removeFromCart(name) {
+        delete cart[name];
+        modal4.style.display = 'flex';
+        renderCart();
+    }
+
+    // Функция для сохранения чека в формате JSON
+    function saveReceiptToJSON() {
+        const receipt = {
+            date: new Date().toLocaleString('ru-RU'),
+            items: [],
+            total: totalSum,
+            itemsCount: Object.keys(cart).length
+        };
+
+        // Добавляем товары в чек
+        for (const [name, item] of Object.entries(cart)) {
+            receipt.items.push({
+                name: name,
+                price: item.price,
+                quantity: item.quantity,
+                total: item.price * item.quantity
+            });
+        }
+
+        // Преобразуем в JSON с красивым форматированием
+        const jsonData = JSON.stringify(receipt, null, 2);
+        
+        // Создаем и скачиваем файл
+        const blob = new Blob([jsonData], { type: 'application/json' });
+        const url = URL.createObjectURL(blob);
+        
+        const link = document.createElement('a');
+        link.href = url;
+        link.download = `чек_${new Date().toISOString().replace(/[:.]/g, '-')}.json`;
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+        
+        // Очищаем URL
+        URL.revokeObjectURL(url);
+        
+        return receipt;
+    }
+
+    // Обработка оплаты
+    completeBtn.onclick = () => {
+        // Сохраняем чек перед очисткой корзины
+        if (Object.keys(cart).length > 0) {
+            saveReceiptToJSON();
+        }
+        
+        modal.style.display = 'flex';
+        for (let key in cart) delete cart[key];
+        renderCart();
+        setTimeout(() => {
+            modal.style.display = 'none';
+            modal5.style.display = 'flex'
+        }, 3000);
+    };
+    
+    saleBtn.onclick = () => {
+        inp.value = ''
+        modal2.style.display = 'flex';
+        let percent = totalSum
+        totalSum = percent - percent * 0.2;
+        renderCart();
+    };
+    
+    helpBtn.onclick = () => {
+        modal3.style.display = 'flex';
+    };
+
+    renderProducts();
+    modal5.style.display = 'flex'
+</script>
+
+</html>

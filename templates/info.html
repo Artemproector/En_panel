@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <title>Отчет | Панель предпринимателя</title>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <link rel="shortcut icon" href="static/img/favicon.jpg" type="image/x-icon">
+
+    <link rel='stylesheet' type='text/css' media='screen' href='static/index.css'>
+</head>
+<div class="loader_modal">
+    <div class="loader"></div>
+</div>
+
+<body>
+    <header></header>
+    <main>
+        <h2>Отчеты</h2>
+        <p>Создайте отчет о работе вашей организации</p>
+        <p>Выберите необходимый отчет:</p>
+        <a href="#" onclick="downloadReport('general')" class="download_btn">Скачать общий отчет</a>
+
+        <p>Информация:</p>
+        <ul>
+            <li><a href="#" onclick="downloadReport('consumables')">Полная информация о расходниках</a></li>
+            <li><a href="#" onclick="downloadReport('products')">Полная информация о изделиях</a></li>
+            <li><a href="#" onclick="downloadReport('orders')">Полная информация о заказах</a></li>
+            <li><a href="#" onclick="downloadReport('finance')">Полная информация о финансах</a></li>
+        </ul>
+
+        <p>Выручка:</p>
+        <ul>
+            <li><a href="#" onclick="downloadReport('revenue')">Статистика выручки</a></li>
+        </ul>
+        
+        <p>Финансы:</p>
+        <ul>
+            <li><a href="#" onclick="downloadReport('finance_stats')">Статистика финансов</a></li>
+            <li><a href="#" onclick="downloadReport('profitability')">Анализ рентабельности</a></li>
+        </ul>
+        
+        <p>Рейтинги:</p>
+        <ul>
+            <li><a href="#" onclick="downloadReport('popular')">Рейтинг популярных изделий</a></li>
+            <li><a href="#" onclick="downloadReport('price')">Рейтинг цены изделий</a></li>
+        </ul>
+    </main>
+</body>
+<script src="static/js/paster.js"></script>
+<script src="static/js/info.js"></script>
+<script>
+    setTimeout(function () {
+        let loader = document.querySelector('.loader_modal');
+        loader.style.animation = '0.2s load forwards'
+    }, 300);
+</script>
+
+</html>

@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <title>Поставщики | Панель предпринимателя</title>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <link rel="shortcut icon" href="static/img/favicon.jpg" type="image/x-icon">
+    <link rel='stylesheet' type='text/css' media='screen' href='static/index.css'>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://unpkg.com/@popperjs/core@2/dist/umd/popper.min.js"></script>
+    <script src="https://unpkg.com/tippy.js@6/dist/tippy-bundle.umd.js"></script>
+    <script src="https://unpkg.com/@popperjs/core@2"></script>
+    <script src="https://unpkg.com/tippy.js@6"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css" rel="stylesheet" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/i18n/ru.min.js"></script>
+</head>
+<body>
+    <div class="loader_modal">
+        <div class="loader"></div>
+    </div>
+    <div class="modal add_con">
+        <div class="content">
+            <div class="flex">
+                <h2>Добавить поставщика</h2>
+                <div onclick="full_modal.classList.toggle('show_modal');" class="btn">Закрыть</div>
+            </div>
+            <form class="form_add" action="/save/con" method="POST">
+                <input type="text" name="name_prov" id="name_prov" placeholder="Название поставщика">
+                <input type="text" name="name_con" class="con" placeholder="Название расходника" required>
+                <select name="unit" class="unit" autocomplete="on">
+                    <option disabled selected value="-">Выберите единицу измерения</option>
+                    <optgroup label="Литры">
+                        <option value="л">Литры</option>
+                        <option value="мл">Миллилитры</option>
+                    </optgroup>
+                    <optgroup label="Килограммы">
+                        <option value="кг">Килограммы</option>
+                        <option value="г">Граммы</option>
+                    </optgroup>
+                    <optgroup label="Штуки">
+                        <option value="шт">Шт</option>
+                    </optgroup>
+                </select>
+                <input type="text" name="price" class="price" placeholder="Цена" required>
+                <input type="text" name="count" class="count" placeholder="Количество" required>
+                <p class="all_price"></p>
+                <button class="saver" type="submit">Сохранить</button>
+                <input type="text" name="id" class="id" style="display: none;">
+            </form>
+        </div>
+    </div>
+    <header></header>
+    <main>
+        <h2>Расходники и постащики</h2>
+        <p>Отслеживайте поставщиков в реальном времени!</p>
+        <button class="add btn">Добавить расходник</button>
+        <div class="area"></div>
+    </main>
+    <script src="static/js/paster.js"></script>
+    <script src="static/js/provider.js"></script>
+</body>
+</html>

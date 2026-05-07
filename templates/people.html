@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <title>Сотрудники | Панель предпринимателя</title>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <link rel="shortcut icon" href="static/img/favicon.jpg" type="image/x-icon">
+    <link rel='stylesheet' type='text/css' media='screen' href='static/index.css'>
+</head>
+
+<body>
+    <div class="loader_modal">
+        <div class="loader"></div>
+    </div>
+    <div class="modal add_ppl">
+        <div class="content">
+            <div class="flex">
+                <h2>Добавить сотрудника</h2>
+                <div onclick="full_modal.classList.toggle('show_modal');" class="btn">Закрыть</div>
+            </div>
+            <form class="form_add" action="/save/people" method="POST">
+                <input type="text" name="name_prd" class="name" placeholder="ФИО" required>
+                <input type="number" name="price" class="price" placeholder="Зарплата" required>
+                <input type="text" name="study" class="study" placeholder="Образование" required>
+                <input type="number" name="stage" class="stage" placeholder="Стаж" required>
+                <input type="number" name="post" class="post" placeholder="Должность" required>
+                <input type="tel" name="tel" class="tel" placeholder="Телефон" required>
+                <button class="saver" type="submit">Сохранить</button>
+                <input type="text" name="id" class="id" style="display: none;">
+            </form>
+        </div>
+    </div>
+    <header></header>
+    <main>
+        <h2>Сотрудники</h2>
+        <p>Отслеживайте зарплаты и должности ваших сотруднков!</p>
+        <h1>СДЕЛАТЬ!!</h1>
+        <button class="add btn">Добавить сотрудника</button>
+        <div class="area">
+        </div>
+    </main>
+</body>
+<script src="static/js/paster.js"></script>
+<script src="static/js/people.js"></script>
+</html>

@@ -78,13 +78,6 @@ if (header) {
         </span>
         <span class="link-title">Продукты</span>
       </a>
-      <a href="/orders" class="link">
-        <span class="link-icon">
-          <img src="static/img/orders.png" alt="">
-        </span>
-        <span class="link-title">Продажи</span>
-      </a>      
-
       <a href="/finance" class="link">
         <span class="link-icon">
           <img src="static/img/finance.png" alt="">
